@@ -1,0 +1,16 @@
+# Thin caller — logic lives in github-actions-components.
+# Explicit secret map (no secrets: inherit) for Semgrep least-privilege.
+name: Check for Flyway Project
+
+on:
+  pull_request:
+    types: [opened, edited]
+
+jobs:
+  check-flyway-project:
+    uses: twitter-payments/github-actions-components/.github/workflows/check_flyway_project.yml@c650694ab34f2c8239545ae69acf445ecb767949 # v24.8.0
+    with:
+      runner_group: devxm-x64-xsmall
+      app_id: ${{ vars.X_ENG_AUTOMATIONS_APP_ID }}
+    secrets:
+      X_ENG_AUTOMATIONS_PRIV_KEY: ${{ secrets.X_ENG_AUTOMATIONS_PRIV_KEY }}
